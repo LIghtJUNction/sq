@@ -26,13 +26,18 @@ with tempfile.TemporaryDirectory(prefix="sq-release-") as temporary:
     stage.mkdir()
     shutil.copy2(source, stage / binary)
     (stage / binary).chmod(0o755)
-    for path in ["LICENSE", "README.md", "config/config.toml", "packaging/systemd/sq.service"]:
+    for path in ["LICENSE", "README.md", "README.zh-CN.md", "config/config.toml", "packaging/systemd/sq.service"]:
         shutil.copy2(root / path, stage / Path(path).name)
+    for directory in ["config", "docs"]:
+        shutil.copytree(root / directory, stage / directory)
+    (stage / "python").mkdir()
+    shutil.copy2(root / "python/README.md", stage / "python/README.md")
     if windows:
         archive = args.output / f"{name}.zip"
         with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as output:
-            for path in sorted(stage.iterdir()):
-                output.write(path, arcname=f"{name}/{path.name}")
+            for path in sorted(stage.rglob("*")):
+                if path.is_file():
+                    output.write(path, arcname=str(path.relative_to(stage.parent)))
     else:
         archive = args.output / f"{name}.tar.gz"
         with tarfile.open(archive, "w:gz") as output:

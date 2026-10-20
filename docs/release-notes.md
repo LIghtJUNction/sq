@@ -1,4 +1,8 @@
-First release of sq, a streaming System One client and local relay.
+sq 0.1.1: the first complete binary release, with Python SDK 0.1.1.
+
+This release supersedes the initial 0.1.0 build. The user service keeps
+credentials private without depending on filesystem namespaces,
+and archives include the linked documentation and configuration examples.
 
 - Rust CLI: text, JSONL, JSON documents/arrays and CSV; bounded ordered concurrency.
 - Choice, Score and Noul; JSON output, raw extraction and confidence/threshold filters.
