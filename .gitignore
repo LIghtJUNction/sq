@@ -1,0 +1,12 @@
+/target/
+/dist/
+/.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.env
+/config.local.toml
+/packaging/aur/src/
+/packaging/aur/pkg/
+/packaging/aur/*.pkg.tar.*

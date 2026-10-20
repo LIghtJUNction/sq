@@ -1,0 +1,19 @@
+[team]
+type = "choice"
+instructions = "Who should handle this ticket?"
+[team.criteria]
+billing = "Payments, charges and refunds"
+support = "Technical errors and outages"
+review = "Needs human review or more information"
+
+[severity]
+type = "score"
+instructions = "How severe is the reported incident?"
+criteria = ["Cosmetic only", "Degraded function, workaround exists", "Unavailable, no workaround"]
+
+[urgent]
+type = "noul"
+instructions = "Does this ticket require immediate attention?"
+[urgent.criteria]
+true = "Service is down or there is ongoing financial loss"
+false = "Routine request that can wait"

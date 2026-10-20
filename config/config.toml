@@ -1,0 +1,41 @@
+# sq reads $XDG_CONFIG_HOME/sq/config.toml (usually ~/.config/sq/config.toml).
+# Override with --config or SQ_CONFIG. Store credentials in environment variables.
+provider = "jev"
+fallback = [] # e.g. ["drex", "laya"] - sends the same data to these providers on failure
+strategy = "fallback" # or "round_robin" to spread requests across the whole pool
+concurrency = 8
+timeout_secs = 60
+retries = 2 # retries per provider on connection/timeout, HTTP 429 and 5xx
+
+[providers.jev]
+preset = "jev"
+base_url = "https://api.typesafe.ai" # origin ONLY, no /v1 or other path
+model = "jev-latest"
+api_key_env = "TYPESAFE_API_KEY"
+
+[providers.drex]
+preset = "drex"
+base_url = "https://console.nace.ai"
+model = "drex-latest"
+api_key_env = "NACE_API_KEY"
+
+[providers.laya]
+preset = "laya"
+base_url = "http://127.0.0.1:8000"
+# Omit model to let Laya route automatically, or use "typed-decisions".
+api_key_env = "LAYA_API_KEY"
+
+# [providers.my_gateway]
+# preset = "custom"
+# base_url = "https://decisions.example.com"
+# model = "my-model"
+# api_key_env = "MY_GATEWAY_KEY"
+
+[daemon]
+# Linux default: $XDG_RUNTIME_DIR/sq.sock; without a runtime dir: ~/.cache/sq/sq.sock
+# socket = "/run/user/1000/sq.sock"
+# TCP replaces the socket listener:
+# listen = "127.0.0.1:7979"
+# Required for non-loopback TCP; optional for local TCP/socket:
+# token_env = "SQ_RELAY_TOKEN"
+max_body_bytes = 4194304

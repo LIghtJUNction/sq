@@ -1,0 +1,16 @@
+name: Publish Python SDK
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv build --project python --out-dir dist -q
+      - run: uv publish --trusted-publishing always -q
