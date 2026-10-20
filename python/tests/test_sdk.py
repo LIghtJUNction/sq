@@ -237,3 +237,22 @@ def test_daemon_does_not_forward_provider_credential(monkeypatch):
 
     with Client(daemon_url="http://127.0.0.1:7979", transport=httpx.MockTransport(handler)) as c:
         assert c.evaluate("hello", {"x": Noul("Yes?")}).provider == "drex"
+
+
+def test_explicit_key_overrides_invalid_environment(monkeypatch):
+    monkeypatch.setenv("TYPESAFE_API_KEY", "invalid\ncredential")
+    with Client(api_key="valid-explicit-key", transport=httpx.MockTransport(reply)) as client:
+        assert client.evaluate("hello", {"x": Noul("Yes?")}).model == "jev-latest"
+
+
+def test_default_socket_matches_cli_without_runtime_dir(tmp_path, monkeypatch):
+    from systemone_sq import default_socket
+
+    monkeypatch.delenv("XDG_RUNTIME_DIR", raising=False)
+    monkeypatch.setenv("XDG_CACHE_HOME", str(tmp_path))
+    monkeypatch.setattr("systemone_sq.config.sys.platform", "linux")
+    assert default_socket() == tmp_path / "sq/sq.sock"
+    monkeypatch.setattr("systemone_sq.config.sys.platform", "darwin")
+    from pathlib import Path
+
+    assert default_socket() == Path.home() / "Library/Caches/sq/sq.sock"

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sq-system-one"
-version = "0.1.0"
+version = "0.1.1"
 description = "Typed Python SDK for sq and System One decision APIs"
 readme = "README.md"
 requires-python = ">=3.11"

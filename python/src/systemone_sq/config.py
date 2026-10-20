@@ -58,11 +58,13 @@ def default_config() -> Path:
 def default_socket() -> Path:
     if runtime := os.environ.get("XDG_RUNTIME_DIR"):
         return Path(runtime) / "sq.sock"
-    if hasattr(os, "getuid"):
-        runtime_dir = Path(f"/run/user/{os.getuid()}")
-        if runtime_dir.is_dir():
-            return runtime_dir / "sq.sock"
-    return Path(os.environ.get("XDG_CACHE_HOME", str(Path.home() / ".cache"))) / "sq/sq.sock"
+    if sys.platform == "darwin":
+        cache = Path.home() / "Library/Caches"
+    elif sys.platform == "win32":
+        cache = Path(os.environ.get("LOCALAPPDATA", str(Path.home() / "AppData/Local")))
+    else:
+        cache = Path(os.environ.get("XDG_CACHE_HOME", str(Path.home() / ".cache")))
+    return cache / "sq/sq.sock"
 
 
 @dataclass(frozen=True)

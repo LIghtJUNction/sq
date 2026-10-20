@@ -15,7 +15,7 @@ macOS and Windows archives use native system libraries. No Python/Node runtime i
 needed for the Rust CLI. This executable shares the name `sq` with other software;
 check `sq --version` if you already have one installed.
 
-Arch Linux (after AUR publication):
+Arch Linux:
 
 ```sh
 yay -S sq-system-one-bin
@@ -272,7 +272,8 @@ and GitHub Release publication. These release builds smoke-test their binaries.
 The SDK wheel/sdist are attached to GitHub Releases. PyPI publication uses
 `uv publish -q`; the manual `pypi.yml` workflow supports trusted publishing after
 registering `LIghtJUNction/sq`, workflow `pypi.yml`, environment `pypi` in PyPI.
-A local upload instead needs an index credential. AUR updates are rendered with
+A local upload instead needs an index credential. CLI and SDK patch versions may
+advance independently; the current Python SDK is 0.1.1. AUR updates are rendered with
 `python scripts/update-aur.py VERSION` after the release, followed by
 `makepkg --printsrcinfo > .SRCINFO`, local package validation, commit and push to
 the AUR package repo. No personal SSH keys are copied into GitHub Actions.

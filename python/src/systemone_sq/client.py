@@ -120,7 +120,11 @@ class _Base:
         self._credentials: list[dict[str, str]] = []
         providers = self.settings.providers[:1] if self._relay else self.settings.providers
         for i, p in enumerate(providers):
-            headers = _headers(p, daemon_token_env, self._relay)
+            headers = (
+                {}
+                if api_key is not None and i == 0 and not self._relay
+                else _headers(p, daemon_token_env, self._relay)
+            )
             if api_key is not None and i == 0:
                 if self._relay:
                     raise ValueError("use daemon_token_env for relay credentials")
@@ -172,7 +176,7 @@ class Client(_Base):
             transport=transport,
             timeout=self.settings.timeout,
             follow_redirects=False,
-            headers={"User-Agent": "sq-python/0.1.0"},
+            headers={"User-Agent": "sq-python/0.1.1"},
         )
         self._slots = threading.BoundedSemaphore(self.settings.concurrency)
 
@@ -262,7 +266,7 @@ class AsyncClient(_Base):
             transport=transport,
             timeout=self.settings.timeout,
             follow_redirects=False,
-            headers={"User-Agent": "sq-python/0.1.0"},
+            headers={"User-Agent": "sq-python/0.1.1"},
         )
         self._slots = asyncio.Semaphore(self.settings.concurrency)
 
