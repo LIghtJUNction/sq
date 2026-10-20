@@ -10,7 +10,7 @@ Rust 编写的命令行工具，原生使用 `/v1/systemone`，支持 Jev、Drex
 
 从 [GitHub Releases](https://github.com/LIghtJUNction/sq/releases) 下载对应平台，
 校验 SHA256SUMS，解压后把 sq 放进 PATH。Linux 提供静态二进制。
-Arch Linux 的包名是 `sq-system-one-bin`。
+Arch Linux 安装包：[sq-system-one-bin](https://aur.archlinux.org/packages/sq-system-one-bin)。
 
 ```sh
 export TYPESAFE_API_KEY='你的密钥'

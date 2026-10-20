@@ -15,7 +15,7 @@ macOS and Windows archives use native system libraries. No Python/Node runtime i
 needed for the Rust CLI. This executable shares the name `sq` with other software;
 check `sq --version` if you already have one installed.
 
-Arch Linux:
+Arch Linux: [sq-system-one-bin](https://aur.archlinux.org/packages/sq-system-one-bin).
 
 ```sh
 yay -S sq-system-one-bin

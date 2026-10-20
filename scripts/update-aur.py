@@ -28,7 +28,7 @@ pkgdesc='Streaming System One decisions for shell pipelines (Jev, Drex, Laya)'
 arch=('x86_64' 'aarch64')
 url='https://github.com/LIghtJUNction/sq'
 license=('MIT')
-provides=('sq-system-one')
+provides=("sq-system-one=$pkgver")
 conflicts=('sq-system-one' 'sq' 'sequoia-sq')
 options=('!strip')
 '''
@@ -50,6 +50,8 @@ package() {
   install -Dm644 sq.service "$pkgdir/usr/lib/systemd/user/sq.service"
   install -Dm644 config.toml "$pkgdir/usr/share/doc/sq-system-one/config.toml"
   install -Dm644 README.md "$pkgdir/usr/share/doc/sq-system-one/README.md"
+  install -Dm644 README.zh-CN.md "$pkgdir/usr/share/doc/sq-system-one/README.zh-CN.md"
+  cp -r docs config python "$pkgdir/usr/share/doc/sq-system-one/"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 '''
